@@ -115,8 +115,16 @@ export const menu_list = [
         menu_name: "Noodles",
         menu_image: menu_8
     }]
+export type FoodItemType = {
+    _id: string;
+    name: string;
+    price: number;
+    description: string;
+    image: string;
+    category : string
+};
 
-export const food_list = [
+export const food_list:FoodItemType[] = [
     {
         _id: "1",
         name: "Greek salad",
