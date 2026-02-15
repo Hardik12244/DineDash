@@ -121,7 +121,7 @@ export type FoodItemType = {
     price: number;
     description: string;
     image: string;
-    category : string
+    category : string;
 };
 
 export const food_list:FoodItemType[] = [

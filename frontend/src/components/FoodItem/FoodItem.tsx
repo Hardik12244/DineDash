@@ -3,7 +3,7 @@ import { assets, type FoodItemType } from '../../assets/assets'
 import './FoodItem.css'
 import { StoreContext } from '../../context/StoreContext'
 
-function FoodItem({ _id, name, description, price, image }: FoodItemType) {
+function FoodItem({ _id, name, description, price, image,category }: FoodItemType) {
 
     const context = useContext(StoreContext);
     if (!context) return null;
