@@ -62,4 +62,13 @@
         max-width: 100%;
         font-size: 14px;
     }
+
+    .explore-menu-list-item img {
+        width: 15vw;
+    }
+
+    .explore-menu-list-item p {
+        margin-top: 10px;
+        font-size: max(1.4vw, 12px);
+    }
 }
