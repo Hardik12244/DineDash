@@ -27,7 +27,7 @@ function Footer() {
                 <div className="footer-content-right">
                     <h2>Get In Touch</h2>
                     <ul>
-                        <li>1-21-2333-2122</li>
+                        <li>1-2-ka-4---4-2-ka-1 || My name is ...</li>
                         <li>contact@DineDash.com</li>
                     </ul>
                 </div>
