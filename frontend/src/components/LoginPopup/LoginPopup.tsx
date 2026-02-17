@@ -5,7 +5,7 @@ type setShowLogin = {
     setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function LoginPopup({ setShowLogin }: setShowLogin) {
+function LoginPopup({setShowLogin}: setShowLogin) {
     const [currState, setCurrState] = useState("Login");
     return (
         <div className='login-popup'>
@@ -26,9 +26,7 @@ function LoginPopup({ setShowLogin }: setShowLogin) {
                 </div>
                 {currState === "Login" ? <p>Create new account ? <span onClick={() => setCurrState("Sign up")}>Click here </span></p> : <p>Already have account ? <span onClick={() => setCurrState("Login")}>Click here </span></p>}
 
-
             </form>
-
 
         </div>
     )
