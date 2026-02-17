@@ -8,7 +8,7 @@ const port = 3000;
 
 app.use(express.json());
 app.use(cors());
-
+app.use("/images",express.static('uploads'))
 dbConnect();
 
 app.use('/api/food',foodRouter)
