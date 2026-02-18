@@ -13,12 +13,43 @@ export const addFood = async (req: Request, res: Response) => {
         category: req.body.category,
         image: image_filename
     })
-    try{
+    try {
         await food.save()
-        res.json({success:true,msg:"food added"})
-    }catch(err){
+        res.json({ success: true, msg: "food added" })
+    } catch (err) {
         console.log(err);
-        res.send(411).json({success:false,msg:"food not added"})
+        res.send(411).json({ success: false, msg: "food not added" })
+    }
+
+}
+
+export const listFood = async (req: Request, res: Response) => {
+
+    try {
+        const foods = await foodModel.find({})
+        res.json({ success: true, msg: "food added" })
+    } catch (err) {
+        console.log(err);
+        res.send(411).json({ success: false, msg: "food not added" })
+    }
+}
+
+export const removeFood = async (req: Request, res: Response) => {
+
+    try {
+        const food = await foodModel.findById(req.body.id)
+
+        if (!food) {
+            return res.status(404).json({ success: false, msg: "Food not found" });
+        }
+
+        fs.unlink(`uploads/${food.image}`, () => { })
+        await foodModel.findByIdAndDelete(req.body.id)
+        
+        res.json({ success: true, msg: "food added" })
+    } catch (err) {
+        console.log(err);
+        res.send(411).json({ success: false, msg: "food not added" })
     }
 
 }
