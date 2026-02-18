@@ -2,9 +2,9 @@ import React from 'react'
 import Navbar from './components/navbar/Navbar'
 import Sidebar from './components/sidebar/Sidebar'
 import { Route, Routes } from 'react-router-dom'
-import Add from '../src/Add/Add' 
-import Orders from './Orders/Orders'
-import List from './List/List'
+import Add from './pages/Add/Add' 
+import Orders from './pages/Orders/Orders'
+import List from './pages/List/List'
 const App = () => {
   return (
     <div>
