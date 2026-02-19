@@ -8,6 +8,9 @@ type StoreContextType = {
     addToCart: (itemId: string) => void;
     removeFromCart: (itemId: string) => void;
     totalCartValue:()=>number
+    url:string,
+    token:string,
+    setToken:React.Dispatch<React.SetStateAction<string>>
 }
 
 type StoreContextProviderProps = {
@@ -24,8 +27,8 @@ export const StoreContext = createContext<StoreContextType | null>(null);
 
 const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
 
-
-
+    const url = "http://localhost:3000"
+    const [token,setToken] = useState("");
     const [cartItems, setCartItems] = useState<CartItemsType>({});
 
     const addToCart = (itemId: string) => {
@@ -59,6 +62,9 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
         addToCart,
         removeFromCart,
         totalCartValue,
+        url,
+        token,
+        setToken
     }
 
     return (
