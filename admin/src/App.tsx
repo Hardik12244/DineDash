@@ -6,6 +6,7 @@ import Add from './pages/Add/Add'
 import Orders from './pages/Orders/Orders'
 import List from './pages/List/List'
 const App = () => {
+  const url = "http://localhost:3000";
   return (
     <div>
         <Navbar/>
@@ -13,9 +14,9 @@ const App = () => {
         <div className="app-content">
               <Sidebar/>
     <Routes>
-      <Route path='/add' element={<Add/>}/>
+      <Route path='/add' element={<Add url={url}/>}/>
       <Route path='/orders' element={<Orders/>}/>
-      <Route path='/list' element={<List/>}/>
+      <Route path='/list' element={<List url={url}/>}/>
     </Routes>
         </div>
       </div>
