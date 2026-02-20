@@ -1,18 +1,19 @@
+import "dotenv/config"
 import userModel from "../models/userModel";
 import bcrypt from "bcrypt"
 import validator from "validator";
 import jwt from "jsonwebtoken"
 import { Request, Response } from "express";
-import "dotenv/config"
 
-const createToken = async (id: string) => {
-    const token = jwt.sign({ id }, process.env.JWTSECRET!)
+const createToken=(id:string)=>{
+    return jwt.sign({id},process.env.JWTSECRET!)
 }
+
 
 const signUp = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     try {
-        const exist = await userModel.find({ email })
+        const exist = await userModel.findOne({ email })
         if (exist) {
             return res.json({ success: false, msg: "User already exist" })
         }
@@ -35,9 +36,9 @@ const signUp = async (req: Request, res: Response) => {
         const token = createToken(user._id.toString())
         res.json({ success: true, token })
 
-    } catch (error) {
-        res.json({ success: false, msg: error })
-    }
+    }catch (error: any) {
+    res.json({ success: false, msg: error.message })
+}
 }
 
 const signIn = async (req: Request, res: Response) => {
@@ -45,19 +46,18 @@ const signIn = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findOne({ email })
         if (!user) {
-            res.json({ success: false, msg:"User does not exist"})
+            return res.json({ success: false, msg:"User does not exist"})
         }
         const isMatch = await bcrypt.compare(password, user!.password)
 
         if(!isMatch){
             return res.json({success:false,msg:"Invalid credentials"})
         }
-        if(!user){return}
         const token = createToken(user._id.toString())
         res.json({success:true,token})
-    } catch (error) {
-        res.json({success:false,msg:error})
-    }
+    }catch (error: any) {
+    res.json({ success: false, msg: error.message })
+}
 
 }
 

@@ -9,8 +9,8 @@ type StoreContextType = {
     removeFromCart: (itemId: string) => void;
     totalCartValue:()=>number
     url:string,
-    token:string,
-    setToken:React.Dispatch<React.SetStateAction<string>>
+    token:string|null,
+    setToken:React.Dispatch<React.SetStateAction<string| null>>;
 }
 
 type StoreContextProviderProps = {
@@ -28,7 +28,7 @@ export const StoreContext = createContext<StoreContextType | null>(null);
 const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
 
     const url = "http://localhost:3000"
-    const [token,setToken] = useState("");
+    const [token,setToken] = useState<string | null>(null);
     const [cartItems, setCartItems] = useState<CartItemsType>({});
 
     const addToCart = (itemId: string) => {
@@ -54,6 +54,12 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
         }
         return total;
     }
+
+    useEffect(()=>{
+        if(localStorage.getItem("token")){
+            setToken(localStorage.getItem("token"))
+        }
+    },[])
 
     const contextValue: StoreContextType = {
         food_list,

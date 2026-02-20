@@ -21,7 +21,7 @@ function LoginPopup({ setShowLogin }: setShowLogin) {
 
     const onChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
-        const value = e.target.value
+        const value = e.target.value;
         setData(data => ({ ...data, [name]: value }))
     }
 
@@ -31,7 +31,7 @@ function LoginPopup({ setShowLogin }: setShowLogin) {
         if (currState === "Login") {
             newUrl += '/api/user/signIn'
         } else {
-            newUrl += '/api/user/signup'
+            newUrl += '/api/user/signUp'
         }
         const response = await axios.post(newUrl,data);
         
@@ -52,7 +52,7 @@ function LoginPopup({ setShowLogin }: setShowLogin) {
                     <img src={assets.cross_icon} onClick={() => setShowLogin(false)} alt="" />
                 </div>
                 <div className="login-popup-inputs">
-                    {currState === "Login" ? <input placeholder='Your Name' name='name' onChange={onChangeHandler} value={data.name} required type="text" /> : <></>}
+                    {currState === "Sign Up" ? <input placeholder='Your Name' name='name' onChange={onChangeHandler} value={data.name} required type="text" /> : <></>}
                     <input name='email' onChange={onChangeHandler} value={data.email} placeholder='email' required type="text" />
                     <input name='password' onChange={onChangeHandler} value={data.password} placeholder='Password' required type="text" />
                 </div>
@@ -61,7 +61,7 @@ function LoginPopup({ setShowLogin }: setShowLogin) {
                     <input type="checkbox" required />
                     <p>By continuing i agree to terms and conditions</p>
                 </div>
-                {currState === "Login" ? <p>Create new account ? <span onClick={() => setCurrState("Sign up")}>Click here </span></p> : <p>Already have account ? <span onClick={() => setCurrState("Login")}>Click here </span></p>}
+                {currState === "Login" ? <p>Create new account ? <span onClick={() => setCurrState("Sign Up")}>Click here </span></p> : <p>Already have account ? <span onClick={() => setCurrState("Login")}>Click here </span></p>}
 
             </form>
 

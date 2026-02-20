@@ -1,3 +1,6 @@
+import "dotenv/config"
+
+console.log("JWTSECRET:", process.env.JWTSECRET);
 import express from "express";
 import cors from "cors";
 import { dbConnect } from "./config/db";
