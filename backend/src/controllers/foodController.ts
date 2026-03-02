@@ -4,6 +4,8 @@ import { Request, Response } from "express";
 
 
 export const addFood = async (req: Request, res: Response) => {
+    console.log("BODY:", req.body);
+console.log("FILE:", req.file);
     let image_filename = req.file?.filename;
 
     const food = new foodModel({
@@ -13,24 +15,24 @@ export const addFood = async (req: Request, res: Response) => {
         category: req.body.category,
         image: image_filename
     })
+    
     try {
         await food.save()
         res.json({ success: true, msg: "food added" })
     } catch (err) {
         console.log(err);
-        res.send(411).json({ success: false, msg: "food not added" })
+        return res.status(400).json({ success: false, msg: "food not added" })
     }
-
 }
 
 export const listFood = async (req: Request, res: Response) => {
 
     try {
         const foods = await foodModel.find({})
-        res.json({ success: true, msg: "food added" })
+        res.json({ success: true, data: foods, msg: "food listed" })
     } catch (err) {
         console.log(err);
-        res.send(411).json({ success: false, msg: "food not added" })
+        res.status(411).json({ success: false, msg: "food not listed" })
     }
 }
 
@@ -45,11 +47,11 @@ export const removeFood = async (req: Request, res: Response) => {
 
         fs.unlink(`uploads/${food.image}`, () => { })
         await foodModel.findByIdAndDelete(req.body.id)
-        
+
         res.json({ success: true, msg: "food added" })
     } catch (err) {
         console.log(err);
-        res.send(411).json({ success: false, msg: "food not added" })
+        res.status(411).json({ success: false, msg: "food not added" })
     }
 
 }

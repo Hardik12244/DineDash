@@ -63,6 +63,17 @@ const Add = ({url}:Url) => {
             if (file) setImage(file);
           }} type="file" id='image' hidden required />
         </div>
+        <div className="add-product-name flex-col">
+          <p>Product name</p>
+          <input
+            onChange={onChangeHandler}
+            value={data.name}
+            type="text"
+            name="name"
+            placeholder="Type here"
+            required
+          />
+        </div>
         <div className="add-product-description">
           <p>Product Description</p>
           <textarea name="description" onChange={onChangeHandler} value={data.description} id="" rows={6} placeholder='Write here' required></textarea>

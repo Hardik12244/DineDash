@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import { food_list, type FoodItemType } from "../assets/assets";
+import {type FoodItemType } from "../assets/assets";
+import axios from "axios";
 
 type StoreContextType = {
     food_list: FoodItemType[];
@@ -7,10 +8,10 @@ type StoreContextType = {
     setCartItems: React.Dispatch<React.SetStateAction<CartItemsType>>;
     addToCart: (itemId: string) => void;
     removeFromCart: (itemId: string) => void;
-    totalCartValue:()=>number
-    url:string,
-    token:string|null,
-    setToken:React.Dispatch<React.SetStateAction<string| null>>;
+    totalCartValue: () => number
+    url: string,
+    token: string | null,
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 type StoreContextProviderProps = {
@@ -28,8 +29,10 @@ export const StoreContext = createContext<StoreContextType | null>(null);
 const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
 
     const url = "http://localhost:3000"
-    const [token,setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
     const [cartItems, setCartItems] = useState<CartItemsType>({});
+    const [food_list, setFoodList] = useState<FoodItemType[]>([]);
+
 
     const addToCart = (itemId: string) => {
         if (!cartItems[itemId]) {
@@ -55,11 +58,22 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
         return total;
     }
 
-    useEffect(()=>{
-        if(localStorage.getItem("token")){
-            setToken(localStorage.getItem("token"))
+    const fetchFoodList = async () => {
+        const response = await axios.get(`${url}/api/food/list`);
+            console.log("API response:", response.data);
+        setFoodList(response.data.data)
+    }
+
+    useEffect(() => {
+
+        async function loadData() {
+            await fetchFoodList();
+            if (localStorage.getItem("token")) {
+                setToken(localStorage.getItem("token"))
+            }
         }
-    },[])
+        loadData();
+    }, [])
 
     const contextValue: StoreContextType = {
         food_list,

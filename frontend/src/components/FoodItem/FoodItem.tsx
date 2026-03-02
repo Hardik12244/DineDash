@@ -8,11 +8,15 @@ function FoodItem({ _id, name, description, price, image,category }: FoodItemTyp
     const context = useContext(StoreContext);
     if (!context) return null;
 
-    const { cartItems, addToCart, removeFromCart } = context;
+    const { cartItems, addToCart, removeFromCart,url } = context;
+
+    console.log("Image coming from DB:", image)
+    console.log("Final URL:", `${url}/images/${image}`)
     return (
         <div className='food-item'>
             <div className="food-item-img-container">
-                <img className='food-item-image' src={image} alt="" />
+                <img className='food-item-image' src={`${url}/images/${image}`} alt="" />
+                
                 {!cartItems[_id] ? <img onClick={() => addToCart(_id)} className='add' src={assets.add_icon_white} /> : <div className='food-item-counter'>
                     <img onClick={() => removeFromCart(_id)} src={assets.remove_icon_red} alt="" />
                     <p>{cartItems[_id]}</p>
